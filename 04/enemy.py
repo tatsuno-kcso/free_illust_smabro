@@ -49,7 +49,7 @@ class EnemyEvent:
 
 class Enemy():
     def __init__(self, x, y, screen, joystick, stage, enemy):
-        self.img = pygame.image.load('img\\business_eigyou_man.png')
+        self.img = pygame.image.load('04\\img\\business_eigyou_man.png')
         self.size = 100 * 1
         self.img = pygame.transform.scale(self.img, (self.size, self.size))
         self.player_pos = self.img.get_rect()
@@ -66,17 +66,17 @@ class Enemy():
 
         self.jump_obj = EnemyJump(screen, joystick, stage, self.player_pos)
 
-        self.damage_img = pygame.image.load('img\\energy_ha_kurau.png')
+        self.damage_img = pygame.image.load('04\\img\\energy_ha_kurau.png')
         self.damage_img = pygame.transform.scale(self.damage_img, (self.size, self.size))
 
         self.damage_font = pygame.font.Font(None, 200)
         self.damage = 0.0
         self.damage_frame_count = 0
 
-        self.attack_img = pygame.image.load('img\\1414502.png')
+        self.attack_img = pygame.image.load('04\\img\\1414502.png')
         self.attack_img = pygame.transform.scale(self.attack_img, (self.size, self.size))
 
-        self.burst_org_img = pygame.image.load('img\\bakuhatsu5.png')
+        self.burst_org_img = pygame.image.load('04\\img\\bakuhatsu5.png')
         self.burst_org_img = pygame.transform.scale(self.burst_org_img, (self.size*3, self.size*10))
         self.burst_frame_count = 0
         self.burst_direction = None

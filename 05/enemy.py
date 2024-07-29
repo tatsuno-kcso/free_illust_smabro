@@ -8,11 +8,15 @@ from lib.textprint import draw_input_info
 from lib.sound import sound
 import random
 
+
 class BURST_DIRECTION(Enum):
     LEFT = 1
     BOTTOM = 2
     RIGHT = 3
 
+class WINDOW_SIZE():
+    WIDTH = 1280
+    HIGHT = 720
 class JoyStickMock():
     def __init__(self, player_pos):
         self.player_pos = player_pos
@@ -24,9 +28,9 @@ class JoyStickMock():
         if not self.can_move:
             return 0
         else:
-            if self.player_pos.x < 300:
+            if self.player_pos.x < 200:
                 self.axis_0 = 1
-            elif self.player_pos.x > 1500:
+            elif self.player_pos.x > WINDOW_SIZE.WIDTH - 200:
                 self.axis_0 = -1
 
         return self.axis_0
@@ -44,7 +48,7 @@ class EnemyEvent:
 
 class Enemy():
     def __init__(self, x, y, screen, joystick, stage, enemy):
-        self.img = pygame.image.load('img\\business_eigyou_man.png')
+        self.img = pygame.image.load('05\\img\\business_eigyou_man.png')
         self.size = 100 * 1
         self.img = pygame.transform.scale(self.img, (self.size, self.size))
         self.player_pos = self.img.get_rect()
@@ -61,17 +65,17 @@ class Enemy():
 
         self.jump_obj = EnemyJump(screen, joystick, stage, self.player_pos)
 
-        self.damage_img = pygame.image.load('img\\energy_ha_kurau.png')
+        self.damage_img = pygame.image.load('05\\img\\energy_ha_kurau.png')
         self.damage_img = pygame.transform.scale(self.damage_img, (self.size, self.size))
 
-        self.damage_font = pygame.font.Font(None, 200)
+        self.damage_font = pygame.font.Font(None, 100)
         self.damage = 0.0
         self.damage_frame_count = 0
 
-        self.attack_img = pygame.image.load('img\\1414502.png')
+        self.attack_img = pygame.image.load('05\\img\\1414502.png')
         self.attack_img = pygame.transform.scale(self.attack_img, (self.size, self.size))
 
-        self.burst_org_img = pygame.image.load('img\\bakuhatsu5.png')
+        self.burst_org_img = pygame.image.load('05\\img\\bakuhatsu5.png')
         self.burst_org_img = pygame.transform.scale(self.burst_org_img, (self.size*3, self.size*10))
         self.burst_frame_count = 0
         self.burst_direction = None
@@ -108,23 +112,23 @@ class Enemy():
             self.direction_right = True
 
     def burst(self):
-        if self.player_pos.y > 1080 and self.burst_frame_count == 0:
+        if self.player_pos.y > WINDOW_SIZE.HIGHT and self.burst_frame_count == 0:
             self.burst_frame_count = 10
             self.burst_direction = BURST_DIRECTION.BOTTOM
             self.burst_img = self.burst_org_img
-            sound("audio\\game_explosion9.mp3")
+            sound("05\\audio\\game_explosion9.mp3")
 
         if self.player_pos.x < 0 and self.burst_frame_count == 0:
             self.burst_frame_count = 10
             self.burst_direction = BURST_DIRECTION.LEFT
             self.burst_img = pygame.transform.rotate(self.burst_org_img, -90)
-            sound("audio\\game_explosion9.mp3")
+            sound("05\\audio\\game_explosion9.mp3")
 
-        if self.player_pos.x > 1920 and self.burst_frame_count == 0:
+        if self.player_pos.x > WINDOW_SIZE.WIDTH and self.burst_frame_count == 0:
             self.burst_frame_count = 10
             self.burst_direction = BURST_DIRECTION.RIGHT
             self.burst_img = pygame.transform.rotate(self.burst_org_img, 90)
-            sound("audio\\game_explosion9.mp3")
+            sound("05\\audio\\game_explosion9.mp3")
 
         if self.burst_frame_count > 0:
             self.burst_img.set_alpha(255)
@@ -146,15 +150,15 @@ class Enemy():
             self.burst_img.set_alpha(0)
 
     def display_damage(self):
-        damage = self.damage_font.render(str(self.damage), True, (0, 0, 0))
-        self.screen.blit(damage, (self.damage_counter_x, 900))
+        damage = self.damage_font.render(str(self.damage) + "%", True, (0, 0, 0))
+        self.screen.blit(damage, (self.damage_counter_x, 550))
 
     def hit_action(self):
         if self.damage_frame_count == 5:
             self.damage += 5
             self.kb_x_vel = 3 * self.damage
             self.kb_y_vel = -3 * self.damage
-            sound("audio\\Hit08-1.mp3")
+            sound("05\\audio\\Hit08-1.mp3")
 
         if self.damage_frame_count > 0:
             self.damage_img.set_alpha(255)

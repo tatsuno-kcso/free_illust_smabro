@@ -44,7 +44,7 @@ def draw_input_info(screen, joystick, text_print):
 
 class Player():
     def __init__(self, x, y, screen, joystick):
-        self.img = pygame.image.load('img\\business_eigyou_man.png')
+        self.img = pygame.image.load('01\\img\\business_eigyou_man.png')
         self.size = 100 * 1
         self.img = pygame.transform.scale(self.img, (self.size, self.size))
         self.player_pos = self.img.get_rect()
@@ -82,7 +82,7 @@ class Player():
 #################################################################################
 def main():
     screen = pygame.display.set_mode((1920, 1080))
-    bg = pygame.image.load("img\\bg_dote.jpg")
+    bg = pygame.image.load("01\\img\\bg_dote.jpg")
     bg = pygame.transform.scale(bg, (1920, 1080))
     
     clock = pygame.time.Clock()

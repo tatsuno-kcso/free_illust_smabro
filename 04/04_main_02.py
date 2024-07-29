@@ -12,7 +12,7 @@ pygame.init()
 def hit_sound():
     pygame.mixer.init() #初期化
     pygame.mixer.music.set_volume(0.3)
-    pygame.mixer.music.load("audio\\Hit08-1.mp3") #読み込み
+    pygame.mixer.music.load("04\\audio\\Hit08-1.mp3") #読み込み
     pygame.mixer.music.play(1) #再生
 class BURST_DIRECTION(Enum):
     LEFT = 1
@@ -21,7 +21,7 @@ class BURST_DIRECTION(Enum):
 
 class Player():
     def __init__(self, x, y, screen, joystick, stage, enemy):
-        self.img = pygame.image.load('img\\business_eigyou_man.png')
+        self.img = pygame.image.load('04\\img\\business_eigyou_man.png')
         self.size = 100 * 1
         self.img = pygame.transform.scale(self.img, (self.size, self.size))
         self.player_pos = self.img.get_rect()
@@ -38,17 +38,17 @@ class Player():
 
         self.jump_obj = Jump(screen, joystick, stage, self.player_pos)
 
-        self.damage_img = pygame.image.load('img\\energy_ha_kurau.png')
+        self.damage_img = pygame.image.load('04\\img\\energy_ha_kurau.png')
         self.damage_img = pygame.transform.scale(self.damage_img, (self.size, self.size))
 
         self.damage_font = pygame.font.Font(None, 200)
         self.damage = 0.0
         self.damage_frame_count = 0
 
-        self.attack_img = pygame.image.load('img\\1414502.png')
+        self.attack_img = pygame.image.load('04\\img\\1414502.png')
         self.attack_img = pygame.transform.scale(self.attack_img, (self.size, self.size))
 
-        self.burst_org_img = pygame.image.load('img\\bakuhatsu5.png')
+        self.burst_org_img = pygame.image.load('04\\img\\bakuhatsu5.png')
         self.burst_org_img = pygame.transform.scale(self.burst_org_img, (self.size*3, self.size*10))
         self.burst_frame_count = 0
         self.burst_direction = None
@@ -198,7 +198,7 @@ class Player():
 #################################################################################
 def main():
     screen = pygame.display.set_mode((1920, 1080))
-    bg = pygame.image.load("img\\bg_dote.jpg")
+    bg = pygame.image.load("04\\img\\bg_dote.jpg")
     bg = pygame.transform.scale(bg, (1920, 1080))
     
     clock = pygame.time.Clock()

@@ -8,7 +8,7 @@ pygame.init()
 #################################################################################
 def main():
     screen = pygame.display.set_mode((1920, 1080))
-    bg = pygame.image.load("img\\bg_dote.jpg")
+    bg = pygame.image.load("01\\img\\bg_dote.jpg")
     bg = pygame.transform.scale(bg, (1920, 1080))
     
     clock = pygame.time.Clock()

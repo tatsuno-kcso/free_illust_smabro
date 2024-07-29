@@ -48,7 +48,7 @@ def draw_input_info(screen, joystick, text_print):
 def sound():
     pygame.mixer.init() #初期化
     pygame.mixer.music.set_volume(0.3)
-    pygame.mixer.music.load("audio\\game_explosion9.mp3") #読み込み
+    pygame.mixer.music.load("02\\audio\\game_explosion9.mp3") #読み込み
     pygame.mixer.music.play(1) #再生
 
 class BURST_DIRECTION(Enum):
@@ -59,7 +59,7 @@ class BURST_DIRECTION(Enum):
 
 class Player():
     def __init__(self, x, y, screen, joystick, stage):
-        self.img = pygame.image.load('img\\business_eigyou_man.png')
+        self.img = pygame.image.load('02\\img\\business_eigyou_man.png')
         self.size = 100 * 1
         self.img = pygame.transform.scale(self.img, (self.size, self.size))
         self.player_pos = self.img.get_rect()
@@ -70,7 +70,7 @@ class Player():
         self.screen = screen
         self.stage = stage
 
-        self.burst_org_img = pygame.image.load('img\\bakuhatsu5.png')
+        self.burst_org_img = pygame.image.load('02\\img\\bakuhatsu5.png')
         self.burst_org_img = pygame.transform.scale(self.burst_org_img, (self.size*3, self.size*10))
 
         # 移動
@@ -249,7 +249,7 @@ class Player():
 #################################################################################
 def main():
     screen = pygame.display.set_mode((1920, 1080))
-    bg = pygame.image.load("img\\bg_dote.jpg")
+    bg = pygame.image.load("02\\img\\bg_dote.jpg")
     bg = pygame.transform.scale(bg, (1920, 1080))
     
     clock = pygame.time.Clock()
