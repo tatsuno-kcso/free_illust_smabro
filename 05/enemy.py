@@ -25,7 +25,7 @@ class JoyStickMock():
         self.can_move = True
     
     def get_axis(self, axis):
-        print("get_axis",self.can_move)
+        #print("get_axis",self.can_move)
         if not self.can_move:
             return 0
         else:
