@@ -2,6 +2,7 @@ import pygame
 import pygame.mixer
 from enum import Enum
 import time
+from charactorimage import CharactorImage
 from action.enemy_jump import EnemyJump
 from lib.textprint import TextPrint
 from lib.textprint import draw_input_info
@@ -48,13 +49,24 @@ class EnemyEvent:
 
 class Enemy():
     def __init__(self, x, y, screen, joystick, stage, enemy):
-        self.img = pygame.image.load('05\\img\\business_eigyou_man.png')
-        self.size = 100 * 1
-        self.img = pygame.transform.scale(self.img, (self.size, self.size))
-        self.player_pos = self.img.get_rect()
-        self.player_pos.x = x
-        self.player_pos.y = y
+        # self.img = pygame.image.load('05\\img\\business_eigyou_man.png')
+        # self.size = 100 * 1
+        # self.img = pygame.transform.scale(self.img, (self.size, self.size))
+        # self.player_pos = self.img.get_rect()
+        # self.player_pos.x = x
+        # self.player_pos.y = y
+        # self.direction_right = True
 
+        # self.damage_img = pygame.image.load('05\\img\\energy_ha_kurau.png')
+        # self.damage_img = pygame.transform.scale(self.damage_img, (self.size, self.size))
+
+        # self.attack_img = pygame.image.load('05\\img\\1414502.png')
+        # self.attack_img = pygame.transform.scale(self.attack_img, (self.size, self.size))
+
+        # self.burst_org_img = pygame.image.load('05\\img\\bakuhatsu5.png')
+        # self.burst_org_img = pygame.transform.scale(self.burst_org_img, (self.size*3, self.size*10))
+
+        self.ci = CharactorImage(x, y, CharactorImage.ENEMY_IMAGE)
         self.damage_counter_x = x
 
         self.joystick = JoyStickMock(self.player_pos) # joystick
@@ -65,23 +77,17 @@ class Enemy():
 
         self.jump_obj = EnemyJump(screen, joystick, stage, self.player_pos)
 
-        self.damage_img = pygame.image.load('05\\img\\energy_ha_kurau.png')
-        self.damage_img = pygame.transform.scale(self.damage_img, (self.size, self.size))
-
+        
         self.damage_font = pygame.font.Font(None, 100)
         self.damage = 0.0
         self.damage_frame_count = 0
 
-        self.attack_img = pygame.image.load('05\\img\\1414502.png')
-        self.attack_img = pygame.transform.scale(self.attack_img, (self.size, self.size))
 
-        self.burst_org_img = pygame.image.load('05\\img\\bakuhatsu5.png')
-        self.burst_org_img = pygame.transform.scale(self.burst_org_img, (self.size*3, self.size*10))
         self.burst_frame_count = 0
         self.burst_direction = None
 
         # 移動
-        self.direction_right = True
+        
 
         # burst
         self.burst_frame_count = 0

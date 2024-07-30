@@ -3,6 +3,7 @@ import pygame
 class Jump():
     def __init__(self, screen, joystick, stage, ci):
         self.joystick = joystick
+        self.joystickid = joystick.get_instance_id()
         self.screen = screen
         self.stage = stage
         self.ci = ci
@@ -24,7 +25,7 @@ class Jump():
     def jump_input(self, events):
         # print(self.before_jump_frame_count)
         for event in events:
-            if event.type == pygame.JOYBUTTONDOWN and event.button == 5:
+            if event.type == pygame.JOYBUTTONDOWN and event.button == 5 and self.joystickid == event.instance_id:
                 print("pygame.JOYBUTTONDOWN")
                 # flg初期化
                 self.short_jump_flg = False
@@ -35,10 +36,10 @@ class Jump():
                     self.jump_frame_count = 0
                     print("二段ジャンプしました")
             # ショートジャンプ入力受付
-            if event.type == pygame.JOYBUTTONUP and event.button == 5 and 1 <= self.before_jump_frame_count and self.before_jump_frame_count <= 4:
+            if event.type == pygame.JOYBUTTONUP and event.button == 5 and self.joystickid == event.instance_id and 1 <= self.before_jump_frame_count and self.before_jump_frame_count <= 4:
                 self.short_jump_flg = True
                 print("pygame.JOYBUTTONUP")
-        if self.joystick and self.joystick.get_axis(1) > 0.9 and self.vel > 0:
+        if self.joystick and self.joystick.get_axis(1) > 0.9 and self.vel > 0 and self.joystickid == event.instance_id:
             self.vel = 1 * self.VEL_CONST
             self.acc = 0 * self.ACC_CONST
             print("急降下")

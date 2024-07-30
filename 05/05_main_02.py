@@ -2,6 +2,7 @@ import pygame
 import pygame.mixer
 from enum import Enum
 import time
+from charactorimage import CharactorImage
 from action.jump import Jump
 from action.move import Move
 from lib.textprint import TextPrint
@@ -19,40 +20,14 @@ class BURST_DIRECTION(Enum):
 class WINDOW_SIZE():
     WIDTH = 1280
     HIGHT = 720
-class CharactorImage():
-    def __init__(self, x, y):
-        self.size = 100 * 1
-        
-        self.img = pygame.image.load('05\\img\\business_eigyou_man.png')
-        self.img = pygame.transform.scale(self.img, (self.size, self.size))
-        self.player_pos = self.img.get_rect()
-        self.player_pos.x = x
-        self.player_pos.y = y
-        self.direction_right = True
-
-        self.default_img = pygame.image.load('05\\img\\business_eigyou_man.png')
-        self.default_img = pygame.transform.scale(self.default_img, (self.size, self.size))
-
-        self.damage_img = pygame.image.load('05\\img\\energy_ha_kurau.png')
-        self.damage_img = pygame.transform.scale(self.damage_img, (self.size, self.size))
-
-        self.attack_img = pygame.image.load('05\\img\\1414502.png')
-        self.attack_img = pygame.transform.scale(self.attack_img, (self.size, self.size))
-
-        self.burst_org_img = pygame.image.load('05\\img\\bakuhatsu5.png')
-        self.burst_org_img = pygame.transform.scale(self.burst_org_img, (self.size*3, self.size*10))
-    def set_default_img(self):
-        if self.direction_right:
-            self.img = self.default_img
-        else:
-            self.img = pygame.transform.flip(self.default_img, True, False)
 
 class Player():
     def __init__(self, x, y, screen, joystick, stage, enemy):
         self.size = 100 * 1
-        self.ci = CharactorImage(x, y)
+        self.ci = CharactorImage(x, y, CharactorImage.PLAYER_IMAGE)
 
         self.joystick = joystick
+        self.joystickid = joystick.get_instance_id()
         self.screen = screen
         self.stage = stage
         self.enemy = enemy
@@ -152,9 +127,10 @@ class Player():
 
     def attack_action(self, events):
         for event in events:
-            if event.type == pygame.JOYBUTTONDOWN and event.instance_id == 0 and event.button == 0 and self.attack_frame_count == 0:
-                self.ci.img = self.ci.attack_img
-                self.attack_frame_count = 10
+            if event.type == pygame.JOYBUTTONDOWN and event.instance_id == self.joystickid:
+                    if event.button == 0 and self.attack_frame_count == 0:
+                        self.ci.img = self.ci.attack_img
+                        self.attack_frame_count = 10
             
         if self.attack_frame_count > 0:
             self.attack_frame_count -= 1
@@ -169,11 +145,11 @@ class Player():
                 if self.hit_enemy(rect):
                     self.enemy.set_damage_frame_count(5, False)
         
-        if self.attack_frame_count == 1:
+        if self.attack_frame_count <= 1:
             self.ci.set_default_img()
 
     def hit_enemy(self, rect):
-        return rect.colliderect(self.enemy.player_pos)
+        return rect.colliderect(self.enemy.ci.player_pos)
 
     def update(self, events):
         for event in events:

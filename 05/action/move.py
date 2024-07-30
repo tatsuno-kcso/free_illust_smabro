@@ -5,6 +5,7 @@ class Move():
         self.ci = ci
         self.player_pos = self.ci.player_pos
         self.joystick = joystick
+        self.joystickid = joystick.get_instance_id()
         self.screen = screen
         self.stage = stage
         # 移動
