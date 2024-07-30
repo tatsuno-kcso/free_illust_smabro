@@ -39,7 +39,7 @@ class Jump():
             if event.type == pygame.JOYBUTTONUP and event.button == 5 and self.joystickid == event.instance_id and 1 <= self.before_jump_frame_count and self.before_jump_frame_count <= 4:
                 self.short_jump_flg = True
                 print("pygame.JOYBUTTONUP")
-        if self.joystick and self.joystick.get_axis(1) > 0.9 and self.vel > 0 and self.joystickid == event.instance_id:
+        if self.joystick and self.joystick.get_axis(1) > 0.9 and self.vel > 0:
             self.vel = 1 * self.VEL_CONST
             self.acc = 0 * self.ACC_CONST
             print("急降下")

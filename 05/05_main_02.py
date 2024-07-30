@@ -31,7 +31,7 @@ class Player():
         self.screen = screen
         self.stage = stage
         self.enemy = enemy
-        self.delta = 60/1000
+        self.delta = 120/1000 #60/1000
 
         
         self.jump_obj = Jump(screen, joystick, stage, self.ci)
@@ -200,12 +200,20 @@ def main():
                     joystick,
                     stage,
                     None)
-    player2 = Player(center + 200,
-                    ground,
-                    screen,
-                    joystick2,
-                    stage,
-                    player)
+    if pygame.joystick.get_count() == 1 :
+        player2 = Enemy(center+200,
+                        ground,
+                        screen,
+                        None,
+                        stage,
+                        player)
+    elif pygame.joystick.get_count() >= 2 :
+        player2 = Player(center + 200,
+                        ground,
+                        screen,
+                        joystick2,
+                        stage,
+                        player)
     player.enemy = player2
     # enemy.enemy = player
     done = False
@@ -214,7 +222,7 @@ def main():
         
         screen.blit(bg, (0, 0))
         # screen.fill("white")
-        pygame.draw.rect(screen, (0,0,0), stage, 0)
+        pygame.draw.rect(screen, (0xFF,0,0), stage, 0)
 
         draw_input_info(screen, joystick, text_print)
         events = pygame.event.get()
